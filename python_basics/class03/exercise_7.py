@@ -36,7 +36,15 @@ def check_path(path):
     '''
 
     # code up your solution here
+    absAddress = os.path.abspath(path)
+    check = os.path.exists(absAddress)
+    if check == False:
+        return check, []
 
+    dirCheck = os.path.isdir(absAddress)
+    fileCheck = os.path.isfile(absAddress)
+
+    return check, [absAddress == path, dirCheck, fileCheck]
 
 
 def read_csv(file):
@@ -55,7 +63,12 @@ def read_csv(file):
     '''
 
     # code up your solution here
-
+    line = 0
+    with open(file, 'r') as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            line += 1
+    return line
 
 
 def write_csv(data_list, output_file):
@@ -83,6 +96,10 @@ def write_csv(data_list, output_file):
     '''
 
     # code up your solution here
+    with open(output_file, 'w', newline='') as f:
+        writer = csv.writer(f, delimiter=',')
+        writer.writerows(data_list)
+    return None
 
 
 
@@ -102,6 +119,9 @@ def read_json(file):
     '''
 
     # code up you solution here
+    with open(file) as f:
+        js = json.load(f)
+    return js
 
 
 
